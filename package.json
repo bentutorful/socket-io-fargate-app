@@ -5,15 +5,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start-dev": "nodemon index.js"
+    "start": "npm-run-all clean --parallel watch:build watch:server --print-label",
+    "clean": "rimraf dist",
+    "watch:build": "tsc --watch",
+    "watch:server": "nodemon index.js --watch './'"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
+    "npm-run-all": "^4.1.5",
     "socket.io": "^2.3.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.1"
+    "nodemon": "^2.0.1",
+    "rimraf": "^3.0.0",
+    "typescript": "^3.7.3"
   }
 }

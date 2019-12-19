@@ -4,7 +4,7 @@ import socketio = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server)
+const io: socketio.Server = socketio(server);
 
 app.use('/dist', express.static(__dirname + '/../dist'));
 app.get('/', (req, res) => {
@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 
 let numUsers = 0;
 
-io.on('connection', (socket) => {
+io.on('connection', (socket: any) => {
     let addedUser = false;
     console.log('A user connected');
 

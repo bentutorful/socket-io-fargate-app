@@ -1,4 +1,4 @@
-const socket = io();
+const socket: any = io();
 
 const person = prompt('Hello! What is your name?');
 socket.emit('new user', person);
@@ -55,13 +55,13 @@ const sendMessage = message => {
         addChatMessage({
             username: person,
             message: message
-        });
+        }, {});
 
         socket.emit('chat message', message);
     }
 }
 
-const addChatMessage = (data, options) => {
+const addChatMessage = (data, options?) => {
     options = options || {};
 
     removeChatTyping(data);
@@ -102,17 +102,10 @@ const addParticipantsMessage = (data) => {
     } else {
         message = `There are ${data.numUsers} participants.`
     }
-    log(message);
+    log(message, {});
 }
 
-const addMessageElement = (node, options) => {
-    if (!options) {
-        options = {};
-    }
-    if (typeof options.prepend === 'undefined') {
-        options.prepend = false;
-    }
-
+const addMessageElement = (node, options = { prepend: false }) => {
     if (options.prepend) {
         messages.insertBefore(node, messages.firstChild);
     } else {
@@ -120,7 +113,7 @@ const addMessageElement = (node, options) => {
     }
 }
 
-const log = (message, options) => {
+const log = (message, options?) => {
     const node = document.createElement('li');
     node.className = 'log';
     node.innerHTML = message;
